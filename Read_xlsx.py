@@ -3,7 +3,9 @@ import openpyxl
 
 def check_file():
     with open("Output.txt", "r") as f:
-        line = f.readline()
+        line = f.readlines()
+        # Получение названия файла
+        line = line[0].strip()
         try:
             wb = openpyxl.load_workbook(line)
             f.close()
@@ -42,10 +44,10 @@ def check_list(text_hyperlinks_cities: list[any]) -> (list[str] | bool):
                          'Города с численностью постоянного населения от 250 тыс. до 500 тыс. человек',
                          'Города с численностью постоянного населения от 100 тыс. до 250 тыс. человек']
 
-    print("ПРОВЕРКА \n")
+    print("ПРОВЕРКА \n", text_cities_check)
 
     if text_cities == text_cities_check:
-        print(text_cities, "\n\nУСПЕШНО\n\n")
+        print("\n\nУСПЕШНО\n\n")
         return hyperlinks_cities
     else:
         print("Сменилось положение в документе ссылок")
@@ -67,22 +69,13 @@ def read_sheet_of_hyperlink(wb, hyperlinks_cities: list[str]) -> list[str]:
     return cities
 
 
-def input_output_txt(output):
-    """
-    Делаю список из того, сколько строк есть в txt (.readlines() - делает список),
-    добавляю к нему свою строку с "\n" для того, чтобы разделить,
-    записываю ко всем линиям результат, закрываю файл
-    """
-    lines = open("Output.txt", "r").readlines()
-    lines.append("\n" + str(output))
-
-    with open("Output.txt", "w") as f:
-        f.writelines(lines)
-        f.close()
+def write_output_txt(output):
+    with open("Output.txt", "a") as f:
+        print(output, file=f)
 
 
 def main():
-    input_output_txt(read_sheet_of_hyperlink(check_file(), check_list(maintenance_text_cells(check_file()))))
+    write_output_txt(read_sheet_of_hyperlink(check_file(), check_list(maintenance_text_cells(check_file()))))
 
 
 main()
