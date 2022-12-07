@@ -72,6 +72,7 @@ def read_sheet_of_hyperlink(wb, hyperlinks_cities: list[str]) -> list[str]:
 def write_output_txt(output):
     with open("Output.txt", "a") as f:
         print(output, file=f)
+        f.close()
 
 
 def main():

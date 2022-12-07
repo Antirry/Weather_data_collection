@@ -23,6 +23,7 @@ def import_xlsx_fun(url: str) -> (str | bool):
 def write_output_txt(text):
     with open("Output.txt", 'a') as f:
         print(text, file=f)
+        f.close()
 
 
 def main():
