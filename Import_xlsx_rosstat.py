@@ -20,14 +20,6 @@ def import_xlsx_fun(url: str) -> (str | bool):
         return False
 
 
-def write_output_txt(text):
-    with open("Output.txt", 'a') as f:
-        print(text, file=f)
-        f.close()
-
-
-def main():
-    write_output_txt(import_xlsx_fun("https://rosstat.gov.ru/compendium/document/13282"))
-
-
-main()
+def import_xlsx_rosstat() -> (str | bool):
+    output = import_xlsx_fun("https://rosstat.gov.ru/compendium/document/13282")
+    return output
