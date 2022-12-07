@@ -16,7 +16,18 @@ def import_xlsx_fun(url: str) -> (str | bool):
 
         return os.path.basename(xlsx).format(xlsx)
     except OSError:
-        print("Такой файл уже есть")
+        print("Не работает сохранение файла (Поменялся сайт)")
         return False
 
-# url = "https://rosstat.gov.ru/compendium/document/13282"
+
+def input_output_txt(text):
+    with open("Output.txt", "w") as f:
+        f.write(text)
+        f.close()
+
+
+def main():
+    input_output_txt(import_xlsx_fun("https://rosstat.gov.ru/compendium/document/13282"))
+
+
+main()

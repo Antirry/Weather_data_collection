@@ -1,15 +1,17 @@
-from Import_xlsx_rosstat import import_xlsx_fun
 import openpyxl
-import os.path
 
 
-def check_file(file):
-    try:
-        wb = openpyxl.load_workbook(file)
-        return wb
-    except OSError:
-        print("Нет файла или не то разрешение (должно быть xlsx)")
-        return False
+def check_file():
+    with open("Output.txt", "r") as f:
+        line = f.readline()
+        try:
+            wb = openpyxl.load_workbook(line)
+            f.close()
+            return wb
+        except OSError:
+            f.close()
+            print("Нет файла или не то разрешение (должно быть .xlsx)")
+            return False
 
 
 def maintenance_text_cells(wb) -> list[any]:
@@ -39,8 +41,11 @@ def check_list(text_hyperlinks_cities: list[any]) -> (list[str] | bool):
                          'Города с численностью постоянного населения от 500 тыс. до 1 млн. человек',
                          'Города с численностью постоянного населения от 250 тыс. до 500 тыс. человек',
                          'Города с численностью постоянного населения от 100 тыс. до 250 тыс. человек']
+
+    print("ПРОВЕРКА \n")
+
     if text_cities == text_cities_check:
-        print("ПРОВЕРКА \n\n", text_cities, "\n\nУСПЕШНО\n\n")
+        print(text_cities, "\n\nУСПЕШНО\n\n")
         return hyperlinks_cities
     else:
         print("Сменилось положение в документе ссылок")
@@ -62,7 +67,22 @@ def read_sheet_of_hyperlink(wb, hyperlinks_cities: list[str]) -> list[str]:
     return cities
 
 
-if __name__ == "__main__":
-    print(read_sheet_of_hyperlink(check_file(import_xlsx_fun("https://rosstat.gov.ru/compendium/document/13282")),
-                                  check_list(maintenance_text_cells(check_file(
-                                      import_xlsx_fun("https://rosstat.gov.ru/compendium/document/13282"))))))
+def input_output_txt(output):
+    """
+    Делаю список из того, сколько строк есть в txt (.readlines() - делает список),
+    добавляю к нему свою строку с "\n" для того, чтобы разделить,
+    записываю ко всем линиям результат, закрываю файл
+    """
+    lines = open("Output.txt", "r").readlines()
+    lines.append("\n" + str(output))
+
+    with open("Output.txt", "w") as f:
+        f.writelines(lines)
+        f.close()
+
+
+def main():
+    input_output_txt(read_sheet_of_hyperlink(check_file(), check_list(maintenance_text_cells(check_file()))))
+
+
+main()
