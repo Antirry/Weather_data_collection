@@ -65,6 +65,6 @@ def read_sheet_of_hyperlink(wb, hyperlinks_cities: list[str]) -> list[str]:
     return cities[:50]
 
 
-def read_xlsx() -> (list[str] | bool):
+def read_xlsx() -> (list[str]):
     output = read_sheet_of_hyperlink(check_file(), check_list(maintenance_text_cells(check_file())))
     return output
