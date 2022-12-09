@@ -2,6 +2,7 @@
 /venv
 /**/__pycache__/
 
+/**/*.pem
 /**/config.py
 /**/*.txt
 /**/*.xlsx

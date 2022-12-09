@@ -1,10 +1,10 @@
 import requests
 import datetime
 from config import open_weather_token
-from Read_xlsx import read_xlsx as cities
+# from Read_xlsx import read_xlsx as cities
 
 
-def get_weather(city_name, open_weather_token):
+def get_weather(city_name, open_weather_token) -> dict:
     try:
         weather_list = list()
         lang = "ru"
@@ -15,28 +15,42 @@ def get_weather(city_name, open_weather_token):
         data = req.json()
 
         name = data['name']
-        date_time = datetime.datetime.fromtimestamp(data['dt'])
-        weather = data['weather'][0]['description']
+        date_time = datetime.datetime.fromtimestamp(data['dt']).strftime("%m/%d/%Y, %H:%M:%S")
+        weather_disc = data['weather'][0]['description']
         temp = data['main']['temp']
         temp_max = data['main']['temp_max']
         temp_min = data['main']['temp_min']
         wind = data['wind']['speed']
         wind_deg = data['wind']['deg']
 
-        weather_list.extend((name, str(date_time), weather, temp, temp_max, temp_min, wind, wind_deg))
-        return weather_list
+        weather_dict = {
+            'name': name,
+            'date_time': date_time,
+            'weather_disc': weather_disc,
+            'temp': temp,
+            'temp_max': temp_max,
+            'temp_min': temp_min,
+            'wind': wind,
+            'wind_deg': wind_deg
+        }
+
+        return weather_dict
 
     except Exception as ex:
         print(f"Ошибка - {ex}")
 
 
-def cities_list_weather() -> list[list[any]]:
+def cities_list_weather() -> list[dict]:
     list_weathers = list()
-    list_weathers.append((get_weather("Москва", open_weather_token)))
-    print("Обработан запрос из списка")
-
-    # for city in cities():
-    #     list_weathers.append(get_weather(city, open_weather_token))
+    # list_weathers.append((get_weather("Москва", open_weather_token)))
+    cities = ['Москва', 'Санкт-Петербург', 'Новосибирск']
+    i = 0
+    for city in cities:
+        weather_city = dict({'id': i}, **get_weather(city, open_weather_token))
+        list_weathers.append(weather_city)
+        print(city)
+        print("Обработан запрос из списка", list_weathers)
+        i += 1
 
     return list_weathers
 
