@@ -1,10 +1,10 @@
 import requests
 import datetime
 from config import open_weather_token
-# from Read_xlsx import read_xlsx as cities
+from Read_xlsx_2 import read_xlsx as cities
 
 
-def get_weather(city_name, open_weather_token) -> dict:
+def get_weather(city_name, open_weather_token) -> dict[str, float]:
     try:
         weather_list = list()
         lang = "ru"
@@ -15,7 +15,7 @@ def get_weather(city_name, open_weather_token) -> dict:
         data = req.json()
 
         name = data['name']
-        date_time = datetime.datetime.fromtimestamp(data['dt']).strftime("%m/%d/%Y, %H:%M:%S")
+        date_time = datetime.datetime.fromtimestamp(data['dt'])
         weather_disc = data['weather'][0]['description']
         temp = data['main']['temp']
         temp_max = data['main']['temp_max']
@@ -24,14 +24,14 @@ def get_weather(city_name, open_weather_token) -> dict:
         wind_deg = data['wind']['deg']
 
         weather_dict = {
-            'name': name,
-            'date_time': date_time,
-            'weather_disc': weather_disc,
-            'temp': temp,
-            'temp_max': temp_max,
-            'temp_min': temp_min,
-            'wind': wind,
-            'wind_deg': wind_deg
+            "name": str(name),
+            "date_time": str(date_time),
+            "weather_disc": str(weather_disc),
+            "temp": temp,
+            "temp_max": temp_max,
+            "temp_min": temp_min,
+            "wind": wind,
+            "wind_deg": wind_deg
         }
 
         return weather_dict
@@ -40,16 +40,14 @@ def get_weather(city_name, open_weather_token) -> dict:
         print(f"Ошибка - {ex}")
 
 
-def cities_list_weather() -> list[dict]:
+def cities_list_weather() -> list[dict[str, float]]:
     list_weathers = list()
-    # list_weathers.append((get_weather("Москва", open_weather_token)))
-    cities = ['Москва', 'Санкт-Петербург', 'Новосибирск']
-    i = 0
-    for city in cities:
-        weather_city = dict({'id': i}, **get_weather(city, open_weather_token))
+    cities_list = cities()
+    i = 1
+    for city in cities_list:
+        weather_city = dict({'_id': i}, **get_weather(city, open_weather_token))
         list_weathers.append(weather_city)
-        print(city)
-        print("Обработан запрос из списка", list_weathers)
+        print(city, "\n Обработан запрос из списка")
         i += 1
 
     return list_weathers
@@ -58,15 +56,15 @@ def cities_list_weather() -> list[dict]:
 """
 print(cities_list_weather())
 
-print("\n Имя города -> ", name,
-      "\n Время данных -> ", date_time,
-      "\n Описание погоды -> ", weather,
-      "\n Температура (по цельсию) -> ", temp,
+print("\n Имя города -> name",
+      "\n Время данных -> date_time",
+      "\n Описание погоды -> weather",
+      "\n Температура (по цельсию) temp",
       "\n Температура в пределах крупных мегаполисов и городских территорий: "
-      "\n      максимальная (по цельсию) -> ", temp_max,
-      "\n      минимальная (по цельсию) -> ", temp_min,
-      "\n Скорость ветра (м/c)-> ", wind,
-      "\n Направление ветра (градусы) -> ", wind_deg)
+      "\n      максимальная (по цельсию) -> temp_max",
+      "\n      минимальная (по цельсию) -> temp_min",
+      "\n Скорость ветра (м/c)-> wind",
+      "\n Направление ветра (градусы) -> wind_deg")
 
 Нужно сделать запрос в бд:
 

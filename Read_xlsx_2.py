@@ -1,5 +1,5 @@
 import openpyxl
-from Import_xlsx_rosstat import import_xlsx_rosstat as xlsx_name
+from Import_xlsx_rosstat_1 import import_xlsx_rosstat as xlsx_name
 
 
 def check_file():
