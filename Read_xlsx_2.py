@@ -8,6 +8,7 @@ def check_file():
         return wb
     except OSError:
         print("Нет файла в .txt или не то разрешение (должно быть .xlsx)")
+        print("Ошибка в файле 'Read_xlsx_2.py'")
         return False
 
 
@@ -21,9 +22,8 @@ def maintenance_text_cells(wb) -> list[any]:
             try:
                 hyperlinks_cities.append(cell.hyperlink.location)
                 text_cities.append(cell.value)
-            except AttributeError:
+            except:
                 pass
-
     hyperlinks_cities = hyperlinks_cities[-5:-1]
     text_cities = text_cities[-5:-1]
 
@@ -46,6 +46,7 @@ def check_list(text_hyperlinks_cities: list[any]) -> (list[str] | bool):
         return hyperlinks_cities
     else:
         print("Сменилось положение в документе ссылок")
+        print("Ошибка в файле 'Read_xlsx_2.py'")
         return False
 
 

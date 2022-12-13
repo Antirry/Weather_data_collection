@@ -17,6 +17,7 @@ def import_xlsx_fun(url: str) -> (str | bool):
         return os.path.basename(xlsx).format(xlsx)
     except OSError:
         print("Не работает сохранение файла (Поменялся сайт)")
+        print("Ошибка в файле 'Import_xlsx_rosstat_1.py'")
         return False
 
 

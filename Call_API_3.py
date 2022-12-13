@@ -4,7 +4,7 @@ from config import open_weather_token
 from Read_xlsx_2 import read_xlsx as cities
 
 
-def get_weather(city_name, open_weather_token) -> dict[str, float]:
+def get_weather(city_name, open_weather_token) -> (dict[str, float], bool):
     try:
         weather_list = list()
         lang = "ru"
@@ -15,7 +15,8 @@ def get_weather(city_name, open_weather_token) -> dict[str, float]:
         data = req.json()
 
         name = data['name']
-        date_time = datetime.datetime.fromtimestamp(data['dt'])
+        date_time = datetime.datetime.utcfromtimestamp(data["dt"]).strftime('%d-%m-%Y %H:%M:%S')
+        date_time = datetime.datetime.strptime(date_time, '%d-%m-%Y %H:%M:%S')
         weather_disc = data['weather'][0]['description']
         temp = data['main']['temp']
         temp_max = data['main']['temp_max']
@@ -25,7 +26,7 @@ def get_weather(city_name, open_weather_token) -> dict[str, float]:
 
         weather_dict = {
             "name": str(name),
-            "date_time": str(date_time),
+            "date_time": date_time,
             "weather_disc": str(weather_disc),
             "temp": temp,
             "temp_max": temp_max,
@@ -37,7 +38,9 @@ def get_weather(city_name, open_weather_token) -> dict[str, float]:
         return weather_dict
 
     except Exception as ex:
-        print(f"Ошибка - {ex}")
+        print(f"Ошибка в создании словаря")
+        print(f"Ошибка в 'Call_API_3.py' - {ex}")
+        return False
 
 
 def cities_list_weather() -> list[dict[str, float]]:
