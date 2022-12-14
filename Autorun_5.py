@@ -1,11 +1,12 @@
 import schedule
 import time
-from Write_in_DB_4 import *
+from Write_in_DB_4 import write_db
 
 
 def job():
     write_db()
     print("\n БАЗА ГОТОВА \n")
+    print("Ожидание следующего запуска программы в 14:00")
     return
 
 
