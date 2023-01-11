@@ -1,7 +1,7 @@
 import pymongo
-from config import hostname
+from To_run_programs_4.config import hostname
 import datetime
-from Call_API_3 import cities_list_weather
+from Data_generation_2.Call_API_3 import cities_list_weather
 
 
 def connect_db():

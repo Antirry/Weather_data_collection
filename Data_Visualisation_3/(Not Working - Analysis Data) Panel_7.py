@@ -1,10 +1,7 @@
-from Extract_Data_6 import retrieve_documents
-from datetime import datetime
+from Data_Visualisation_3.Extract_Data_6 import retrieve_documents
 import pandas as pd
-import numpy as np
 import panel as pn
 pn.extension('tabulator')
-import hvplot.pandas
 
 data, collections_date = retrieve_documents()
 df = pd.DataFrame(data)

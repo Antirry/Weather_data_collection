@@ -22,5 +22,5 @@ def import_xlsx_fun(url: str) -> (str | bool):
 
 
 def import_xlsx_rosstat() -> (str | bool):
-    output = import_xlsx_fun("https://rosstat.gov.ru/compendium/document/13282")
-    return output
+    file_name = import_xlsx_fun("https://rosstat.gov.ru/compendium/document/13282")
+    return file_name

@@ -1,12 +1,11 @@
 import requests
 import datetime
-from config import open_weather_token
-from Read_xlsx_2 import read_xlsx as cities
+from To_run_programs_4.config import open_weather_token
+from Rosstat_xlsx_1.Read_xlsx_2 import read_xlsx as cities
 
 
-def get_weather(city_name, open_weather_token) -> (dict[str, float], bool):
+def get_weather(city_name, open_weather_token) -> (dict[str, int, float], bool):
     try:
-        weather_list = list()
         lang = "ru"
         units = "metric"
         req = requests.get(
@@ -43,7 +42,7 @@ def get_weather(city_name, open_weather_token) -> (dict[str, float], bool):
         return False
 
 
-def cities_list_weather() -> list[dict[str, float]]:
+def cities_list_weather() -> list[dict[str, int, float]]:
     list_weathers = list()
     cities_list = cities()
     i = 1

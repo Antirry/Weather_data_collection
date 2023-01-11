@@ -1,5 +1,5 @@
 import openpyxl
-from Import_xlsx_rosstat_1 import import_xlsx_rosstat as xlsx_name
+from Rosstat_xlsx_1.Import_xlsx_rosstat_1 import import_xlsx_rosstat as xlsx_name
 
 
 def check_file():
@@ -7,7 +7,7 @@ def check_file():
         wb = openpyxl.load_workbook(xlsx_name())
         return wb
     except OSError:
-        print("Нет файла в .txt или не то разрешение (должно быть .xlsx)")
+        print("Нет файла или не то разрешение (должно быть .xlsx)")
         print("Ошибка в файле 'Read_xlsx_2.py'")
         return False
 
@@ -24,6 +24,7 @@ def maintenance_text_cells(wb) -> list[any]:
                 text_cities.append(cell.value)
             except:
                 pass
+
     hyperlinks_cities = hyperlinks_cities[-5:-1]
     text_cities = text_cities[-5:-1]
 
@@ -33,21 +34,27 @@ def maintenance_text_cells(wb) -> list[any]:
 def check_list(text_hyperlinks_cities: list[any]) -> (list[str] | bool):
     text_cities = text_hyperlinks_cities[1]
     hyperlinks_cities = text_hyperlinks_cities[0]
+    text_checked = 0
 
-    text_cities_check = ['Города с численностью постоянного населения 1 млн. человек  и более',
+    text_cities_check = ['Города с численностью постоянного населения 1 млн. человек и более',
                          'Города с численностью постоянного населения от 500 тыс. до 1 млн. человек',
                          'Города с численностью постоянного населения от 250 тыс. до 500 тыс. человек',
                          'Города с численностью постоянного населения от 100 тыс. до 250 тыс. человек']
 
-    print("ПРОВЕРКА \n\n", text_cities_check)
+    print("ПРОВЕРКА \n\n", text_cities, "\n")
 
-    if text_cities == text_cities_check:
-        print("\n\nУСПЕШНО\n\n")
+    for i in range(len(text_cities_check)):
+        try:
+            if text_cities[i] in text_cities_check[i]:
+                text_checked += 1
+        except Exception as ex:
+            print("Сменилось положение в документе ссылок")
+            print("Ошибка в файле 'Read_xlsx_2.py' -> ", ex)
+            return False
+
+    if text_checked is not 0:
+        print("УСПЕШНО \n")
         return hyperlinks_cities
-    else:
-        print("Сменилось положение в документе ссылок")
-        print("Ошибка в файле 'Read_xlsx_2.py'")
-        return False
 
 
 def read_sheet_of_hyperlink(wb, hyperlinks_cities: list[str]) -> list[str]:
