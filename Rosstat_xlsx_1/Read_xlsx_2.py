@@ -1,10 +1,13 @@
 import openpyxl
-from Rosstat_xlsx_1.Import_xlsx_rosstat_1 import import_xlsx_rosstat as xlsx_name
+from Rosstat_xlsx_1.Import_xlsx_rosstat_1 import import_xlsx_rosstat as xlsx_name_path
+import os
 
 
 def check_file():
     try:
-        wb = openpyxl.load_workbook(xlsx_name())
+        file_name, current_path_xlsx = xlsx_name_path()
+        file_path_name = current_path_xlsx + '\\' + file_name
+        wb = openpyxl.load_workbook(filename=file_path_name)
         return wb
     except OSError:
         print("Нет файла или не то разрешение (должно быть .xlsx)")
@@ -52,7 +55,7 @@ def check_list(text_hyperlinks_cities: list[any]) -> (list[str] | bool):
             print("Ошибка в файле 'Read_xlsx_2.py' -> ", ex)
             return False
 
-    if text_checked is not 0:
+    if text_checked != 0:
         print("УСПЕШНО \n")
         return hyperlinks_cities
 

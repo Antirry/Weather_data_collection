@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import os.path
+import shutil
 
 
 def import_xlsx_fun(url: str) -> (str | bool):
@@ -21,6 +22,13 @@ def import_xlsx_fun(url: str) -> (str | bool):
         return False
 
 
-def import_xlsx_rosstat() -> (str | bool):
-    file_name = import_xlsx_fun("https://rosstat.gov.ru/compendium/document/13282")
-    return file_name
+def move_file(file_name: str):
+    created_file_path = os.getcwd()
+    current_path_xlsx = os.path.dirname(os.path.abspath(__file__))
+    shutil.move(created_file_path + "\\" + file_name, current_path_xlsx + "\\" + file_name)
+    return [file_name, current_path_xlsx]
+
+
+def import_xlsx_rosstat() -> (list[str] | bool):
+    file_name, current_path_xlsx = move_file(import_xlsx_fun("https://rosstat.gov.ru/compendium/document/13282"))
+    return [file_name, current_path_xlsx]
