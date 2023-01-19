@@ -1,4 +1,4 @@
-from Data_Visualisation_3.Extract_Data_6 import retrieve_documents
+from _3_Data_Visualisation._6_Extract_Data import retrieve_documents
 import pandas as pd
 import panel as pn
 pn.extension('tabulator')

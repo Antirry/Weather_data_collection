@@ -1,5 +1,5 @@
 import pymongo
-from To_run_programs_4.config import hostname
+from _4_To_run_programs.config import hostname
 import datetime
 
 
@@ -23,7 +23,7 @@ def connect_db():
         return [db, collections_sort, collections_date]
 
     except Exception as ex:
-        print("Проблема с базой, не может подключиться, ошибка в 'Extract_Data_6.py' ->", ex)
+        print("Проблема с базой, не может подключиться, ошибка в '_6_Extract_Data.py' ->", ex)
         return False
 
 

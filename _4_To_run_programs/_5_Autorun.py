@@ -1,6 +1,6 @@
 import schedule
 import time
-from Data_generation_2.Write_in_DB_4 import write_db
+from _2_Data_generation._4_Write_in_DB import write_db
 
 
 def job():

@@ -1,5 +1,5 @@
 import openpyxl
-from Rosstat_xlsx_1.Import_xlsx_rosstat_1 import import_xlsx_rosstat as xlsx_name_path
+from _1_Rosstat_xlsx._1_Import_xlsx_rosstat import import_xlsx_rosstat as xlsx_name_path
 import os
 
 
@@ -11,7 +11,7 @@ def check_file():
         return wb
     except OSError:
         print("Нет файла или не то разрешение (должно быть .xlsx)")
-        print("Ошибка в файле 'Read_xlsx_2.py'")
+        print("Ошибка в файле '_2_Read_xlsx.py'")
         return False
 
 
@@ -52,7 +52,7 @@ def check_list(text_hyperlinks_cities: list[any]) -> (list[str] | bool):
                 text_checked += 1
         except Exception as ex:
             print("Сменилось положение в документе ссылок")
-            print("Ошибка в файле 'Read_xlsx_2.py' -> ", ex)
+            print("Ошибка в файле '_2_Read_xlsx.py' -> ", ex)
             return False
 
     if text_checked != 0:

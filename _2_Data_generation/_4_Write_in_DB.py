@@ -1,7 +1,7 @@
 import pymongo
-from To_run_programs_4.config import hostname
+from _4_To_run_programs.config import hostname
 import datetime
-from Data_generation_2.Call_API_3 import cities_list_weather
+from _2_Data_generation._3_Call_API import cities_list_weather
 
 
 def connect_db():
@@ -13,7 +13,7 @@ def connect_db():
         return collection
 
     except Exception as ex:
-        print("Проблема с базой, не может подключиться, ошибка в 'Write_in_DB_4.py' ->", ex)
+        print("Проблема с базой, не может подключиться, ошибка в '_4_Write_in_DB.py' ->", ex)
         return False
 
 
@@ -24,5 +24,5 @@ def write_db():
         collection.insert_many(cities_list_dict_weather)
 
     except Exception as ex:
-        print("Такая база уже есть, ошибка в 'Write_in_DB_4.py' ->", ex)
+        print("Такая база уже есть, ошибка в '_4_Write_in_DB.py' ->", ex)
         return False

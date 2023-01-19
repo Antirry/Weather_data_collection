@@ -1,7 +1,7 @@
 import requests
 import datetime
-from To_run_programs_4.config import open_weather_token
-from Rosstat_xlsx_1.Read_xlsx_2 import read_xlsx as cities
+from _4_To_run_programs.config import open_weather_token
+from _1_Rosstat_xlsx._2_Read_xlsx import read_xlsx as cities
 
 
 def get_weather(city_name, open_weather_token) -> (dict[str, int, float], bool):
