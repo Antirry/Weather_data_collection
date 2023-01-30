@@ -39,8 +39,11 @@ def retrieve_documents():
 
     # Лямбда находит все айди из каждой таблицы базы данных и дает возможность сортировки
     new_list = [sorted(i, key=lambda _id: _id['_id']) for i in data]
-    new_list = [doc for collect in new_list for doc in collect]
+    new_list = [doc for collection in new_list for doc in collection]
+
+    init = iter(new_list)
+    for i in range(len(new_list)):
+        next(init).update({'_id': i})
 
     return [new_list, connect_db_[2]]
-
 
