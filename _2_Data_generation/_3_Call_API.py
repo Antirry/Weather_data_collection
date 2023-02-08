@@ -14,6 +14,8 @@ def get_weather(city_name, open_weather_token) -> (dict[str, int, float], bool):
         data = req.json()
 
         name = data['name']
+        longitude = data['coord']['lon']
+        latitude = data['coord']['lat']
         date_time = datetime.datetime.utcfromtimestamp(data["dt"]).strftime('%d-%m-%Y %H:%M:%S')
         date_time = datetime.datetime.strptime(date_time, '%d-%m-%Y %H:%M:%S')
         weather_disc = data['weather'][0]['description']
@@ -25,6 +27,8 @@ def get_weather(city_name, open_weather_token) -> (dict[str, int, float], bool):
 
         weather_dict = {
             "name": str(name),
+            "longitude": longitude,
+            "latitude": latitude,
             "date_time": date_time,
             "weather_disc": str(weather_disc),
             "temp": temp,
@@ -42,9 +46,8 @@ def get_weather(city_name, open_weather_token) -> (dict[str, int, float], bool):
         return False
 
 
-def cities_list_weather() -> list[dict[str, int, float]]:
+def cities_list_weather(cities_list) -> list[dict[str, int, float]]:
     list_weathers = list()
-    cities_list = cities()
     i = 1
     for city in cities_list:
         weather_city = dict({'_id': i}, **get_weather(city, open_weather_token))
@@ -55,10 +58,17 @@ def cities_list_weather() -> list[dict[str, int, float]]:
     return list_weathers
 
 
+def start_cities_list_weather():
+    return cities_list_weather(cities())
+
+
 """
 print(cities_list_weather())
 
 print("\n Имя города -> name",
+      "\n Геолокация города: "
+      "\n      долгота -> longitude",
+      "\n      широта -> latitude",
       "\n Время данных -> date_time",
       "\n Описание погоды -> weather",
       "\n Температура (по цельсию) temp",

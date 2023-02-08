@@ -1,7 +1,7 @@
 import pymongo
 from _4_To_run_programs.config import hostname
 import datetime
-from _2_Data_generation._3_Call_API import cities_list_weather
+from _2_Data_generation._3_Call_API import start_cities_list_weather
 
 
 def connect_db():
@@ -20,7 +20,8 @@ def connect_db():
 def write_db():
     try:
         collection = connect_db()
-        cities_list_dict_weather = cities_list_weather()
+        cities_list_dict_weather = start_cities_list_weather()
+        print("\n", "Запись в базу...")
         collection.insert_many(cities_list_dict_weather)
 
     except Exception as ex:
