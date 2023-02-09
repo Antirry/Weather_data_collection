@@ -44,11 +44,12 @@ Metrics = metrics(df)
 
 st.markdown('### Среднее значение данных')
 st.markdown('')
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4, col5 = st.columns(5)
 col1.metric("Мин. темп. - " + Metrics[0], str(Metrics[1]) + ' °C')
-col2.metric("Откл. темп. - " + Metrics[2], str(Metrics[3]) + ' °C')
+col2.metric("Отклон темп. - " + Metrics[2], str(Metrics[3]) + ' °C')
 col3.metric("Макс. темп. - " + Metrics[4], str(Metrics[5]) + ' °C')
-col4.metric("Макс. ветер - " + Metrics[6], str(Metrics[7]) + ' м/с')
+col4.metric("Отклон темп. - " + Metrics[6], str(Metrics[7]) + ' °C')
+col5.metric("Макс. ветер - " + Metrics[8], str(Metrics[9]) + ' м/с')
 
 st.markdown('')
 
@@ -62,7 +63,7 @@ with tab1:
         st.markdown('#### API, который я использовал для данных - [OpenWeatherAPI](https://openweathermap.org/api).')
         st.markdown('#### Откуда я брал данные самых популярных городов ' +
                     '[Росстат](https://rosstat.gov.ru/compendium/document/13282)')
-        image = Image.open(fr"{file_path}\_3_Data_Visualisation\Parts_site\Images\dual-compass-rose.png")
+        image = Image.open(fr"{file_path}\_3_Data_Visualisation\Parts_site\Images\1compass.png")
         st.image(image, use_column_width='Auto', caption='Компас с градусами из столбца "wind_deg"')
     with right1:
         st.write(df)

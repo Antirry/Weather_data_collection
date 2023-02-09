@@ -56,26 +56,22 @@ def check_coordination(update_dict: list, init: dict, i, i_0: int, date: list[st
                             **{'name': str(init['name']),
                                "longitude": float(init['longitude']),
                                "latitude": float(init['latitude']),
-                               'date_time': init['date_time'],
                                'weather_disc': str(init['weather_disc']),
                                'temp': float(init['temp']),
                                'temp_max': float(init['temp_max']),
                                'temp_min': float(init['temp_min']),
                                'wind': float(init['wind']),
-                               'wind_deg': int(init['wind_deg']),
                                'wind_dir': wind_direction(int(init['wind_deg']), float(init['wind']))}})
     else:
         update_dict.append({**{'_id': int(i), 'date': str(date[i_0])},
                             **{'name': str(init['name']),
                                "longitude": float(-1),
                                "latitude": float(-1),
-                               'date_time': init['date_time'],
                                'weather_disc': str(init['weather_disc']),
                                'temp': float(init['temp']),
                                'temp_max': float(init['temp_max']),
                                'temp_min': float(init['temp_min']),
                                'wind': float(init['wind']),
-                               'wind_deg': int(init['wind_deg']),
                                'wind_dir': wind_direction(int(init['wind_deg']), float(init['wind']))}})
 
 
