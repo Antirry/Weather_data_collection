@@ -1,12 +1,11 @@
 import pandas as pd
 import streamlit as st
-from streamlit_folium import st_folium
 from os import getcwd
 from PIL import Image
 from _6_Extract_Data import start_retrieve_documents as documents
 from Parts_site.Metrics import metrics
 from Parts_site.Chart import interactive_chart as chart_
-from Parts_site.map import main_map as map_
+from Parts_site.map import extract_name_coor as name_coor
 
 st.set_page_config(page_title='Погода в г. России',
                    layout='wide',
@@ -17,21 +16,20 @@ with open(fr"{file_path}\_3_Data_Visualisation\Parts_site\style.css") as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def data():
     df = pd.DataFrame(documents())
     return df
 
 
 df = data()
-df_map = data()
 
 st.title('Погода в самых населенных городах России')
 
 with st.sidebar:
     st.markdown('#### (free-cooling), свободное охлаждение серверов воздухом с улицы, работает от -30 до +20 - +22 °C,')
     st.markdown('#### После (+22 - +35 °C) устанавливаются холодильные машины, без свободного охлаждения.')
-    st.markdown('#### Меньше скорость ветра = лучше для кулеру, меньше засориться грязью - пылью фильтр.')
+    st.markdown('#### Меньше скорость ветра = лучше для кулера, меньше засориться грязью - пылью фильтр.')
 
     st.markdown('''---''')
     plot_height = st.sidebar.slider('Настройка высоты графика', 200, 1000, 200)
@@ -97,7 +95,7 @@ with tab1:
     st.dataframe(df, use_container_width=True)
 
     st.markdown('## Карта с самыми населенными городами')
-    st_folium(map_(df_map), key="fig1", height=700, width=1800)
+    st.map(name_coor(df), zoom=2, use_container_width=True)
 
 with tab2:
     left, middle, right = st.columns((1, 5, 1))

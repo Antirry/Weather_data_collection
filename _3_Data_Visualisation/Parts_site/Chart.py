@@ -1,19 +1,13 @@
 import altair as alt
-import random
 import pandas as pd
-
-
 
 
 def interactive_chart(df: pd.DataFrame, plot_height, plot_width):
     cities_dict_list = df['name'].unique()
 
-    # color1 = alt.Color('count():Q', scale=alt.Scale(scheme='blueorange'), title='Количество одинаковых')
     color1 = alt.Color('name:N', scale=alt.Scale(domain=cities_dict_list, scheme='viridis'), title='Количество одинаковых')
     brush = alt.selection_interval(encodings=['x'])
     click = alt.selection_multi(encodings=['color'])
-
-    # color=alt.condition(brush, alt.Color('count():Q', scale=alt.Scale(scheme='greenblue'), title='Количество одинаковых'), alt.value('lightgray')),
 
     points1 = alt.Chart(df).mark_rect().encode(
         alt.Y('wind:Q', bin=alt.Bin(maxbins=60), title='Ветер (м/c)'),
@@ -86,7 +80,7 @@ def interactive_chart(df: pd.DataFrame, plot_height, plot_width):
         bar2,
         bar3,
         data=df,
-        title="Погода России c " + str(df.iloc[0]['date'])[-4:] + " по " + str(df.iloc[-1]['date'])[-4:] + " года"
+        title="Погода России c " + str(df.iloc[0]['date'])[6:] + " по " + str(df.iloc[-1]['date'])[6:] + " года"
     )
 
     return chart

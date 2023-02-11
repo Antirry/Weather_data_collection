@@ -1,5 +1,4 @@
 import requests
-import datetime
 from _4_To_run_programs.config import open_weather_token
 from _1_Rosstat_xlsx._2_Read_xlsx import read_xlsx as cities
 
