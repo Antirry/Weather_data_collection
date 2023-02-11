@@ -10,12 +10,12 @@
     color: #36b9cc !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
-    font-size: 150%
+    font-size: 130%;
 
 }
 
 [data-testid="stMetricValue"] > div {
-    font-size: 130%
+    font-size: 105%
 
 }
 
@@ -29,19 +29,42 @@
 
 }
 
-div.css-1kyxreq.etr89bj2 > img {
+[data-testid="stImage"] > img {
     display: block;
-    margin-left: 20%;
+    margin-left: auto;
     margin-right: auto;
-    width: 100%;
+}
+
+[data-testid="stMarkdownContainer"] > div > h1 {
+    text-align: center !important;
+}
+
+[data-testid="stMarkdownContainer"] > div > h2 {
+    text-align: center !important;
+    color: #36b9cc !important;
+}
+
+[data-testid="stMarkdownContainer"] > div > h3 {
+    text-align: center !important;
+}
+
+[data-testid="caption"] {
+    font-size: 130%;
+}
+
+[data-testid="stImage"] > img {
+    width: 70%;
+    height: 90%;
+}
+
+div.leaflet-container.leaflet-touch.leaflet-retina.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom > div {
+    width: 1300%;
+    height: 300%;
 }
 
 /* Card */
 /* Adapted from https://startbootstrap.com/theme/sb-admin-2 */
 
-div.css-zt5igj.e16nr0p33 {
-    text-align: center;
-}
 
 div.css-1xarl3l.e16fv1kl1 {
     background-color: #FFFFFF;
@@ -77,8 +100,8 @@ footer.css-ipbk5a.egzxvld4 {
   display: none;
 }
 
-footer.css-12gp8ed.eknhn3m4 {
-  display: none;
+footer.css-164nlkn.egzxvld1 {
+    display: none;
 }
 
 div.vg-tooltip-element {

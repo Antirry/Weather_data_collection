@@ -16,8 +16,6 @@ def get_weather(city_name, open_weather_token) -> (dict[str, int, float], bool):
         name = data['name']
         longitude = data['coord']['lon']
         latitude = data['coord']['lat']
-        date_time = datetime.datetime.utcfromtimestamp(data["dt"]).strftime('%d-%m-%Y %H:%M:%S')
-        date_time = datetime.datetime.strptime(date_time, '%d-%m-%Y %H:%M:%S')
         weather_disc = data['weather'][0]['description']
         temp = data['main']['temp']
         temp_max = data['main']['temp_max']
@@ -29,7 +27,6 @@ def get_weather(city_name, open_weather_token) -> (dict[str, int, float], bool):
             "name": str(name),
             "longitude": longitude,
             "latitude": latitude,
-            "date_time": date_time,
             "weather_disc": str(weather_disc),
             "temp": temp,
             "temp_max": temp_max,

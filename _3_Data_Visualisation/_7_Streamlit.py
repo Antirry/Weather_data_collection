@@ -8,7 +8,6 @@ from Parts_site.Metrics import metrics
 from Parts_site.Chart import interactive_chart as chart_
 from Parts_site.map import main_map as map_
 
-
 st.set_page_config(page_title='Погода в г. России',
                    layout='wide',
                    initial_sidebar_state='expanded')
@@ -27,22 +26,23 @@ def data():
 df = data()
 df_map = data()
 
-st.markdown('## Погода в самых населенных городах России')
+st.title('Погода в самых населенных городах России')
 
 with st.sidebar:
-    st.markdown('### (free-cooling), свободное охлаждение серверов воздухом с улицы, работает от -30 до +20 - +22 °C,')
-    st.markdown('### После (+22 - +35 °C) устанавливаются холодильные машины, без свободного охлаждения')
+    st.markdown('#### (free-cooling), свободное охлаждение серверов воздухом с улицы, работает от -30 до +20 - +22 °C,')
+    st.markdown('#### После (+22 - +35 °C) устанавливаются холодильные машины, без свободного охлаждения.')
+    st.markdown('#### Меньше скорость ветра = лучше для кулеру, меньше засориться грязью - пылью фильтр.')
 
     st.markdown('''---''')
     plot_height = st.sidebar.slider('Настройка высоты графика', 200, 1000, 200)
     plot_width = st.sidebar.slider('Настройка широты графиков', 200, 1000, 800)
 
     st.markdown('''---''')
-    st.markdown('### Создано ❤️ студентом [Антипиным Дмитрием](https://github.com/Antirry) 4 ИС-2.')
+    st.markdown('#### Создано ❤️ студентом [Антипиным Дмитрием](https://github.com/Antirry) 4 ИС-2.')
 
 Metrics = metrics(df)
 
-st.markdown('### Среднее значение данных')
+st.markdown('## Среднее значение данных')
 st.markdown('')
 col1, col2, col3, col4, col5 = st.columns(5)
 col1.metric("Мин. темп. - " + Metrics[0], str(Metrics[1]) + ' °C')
@@ -55,24 +55,53 @@ st.markdown('')
 
 tab1, tab2 = st.tabs(["Описание", "Графики"])
 with tab1:
-    st.markdown('## Это сайт -  интерактивная аналитическая панель - форма визуализации данных')
-    st.markdown('#### Нужен для выбора из самых популярных городов и установки на них серверов.')
-    st.markdown('')
-    left1, right1 = st.columns((1, 3))
-    with left1:
-        st.markdown('#### API, который я использовал для данных - [OpenWeatherAPI](https://openweathermap.org/api).')
-        st.markdown('#### Откуда я брал данные самых популярных городов ' +
-                    '[Росстат](https://rosstat.gov.ru/compendium/document/13282)')
-        image = Image.open(fr"{file_path}\_3_Data_Visualisation\Parts_site\Images\1compass.png")
-        st.image(image, use_column_width='Auto', caption='Компас с градусами из столбца "wind_deg"')
-    with right1:
-        st.write(df)
+    st.title('Это сайт -  интерактивная аналитическая панель - форма визуализации данных')
+    st.markdown('### Нужен для выбора из самых популярных городов и установки на них серверов. ' +
+                'Свободное охлаждение это высокий коэффициент энергосбережения. ' +
+                'Так как можно охлаждать помещение окружающим воздухом, не используя кондиционеры.')
 
-    st.markdown('#### Карта с самыми населенными городами')
-    st_folium(map_(df_map), key="fig1", width=2000, height=700)
+    st.markdown('## Проблема одна - это грязный воздух, он увеличивает скорость износа оборудования. ' +
+                'Поэтому я сделал такие цвета от 1 до 50 города.')
+    st.markdown('')
+    image = Image.open(fr"{file_path}\_3_Data_Visualisation\Parts_site\Images\Color_Scheme.jpg")
+    st.image(image, use_column_width='always',
+             caption='Палитра цветов городов (От самого популярного - до не популярного)')
+
+    st.title('')
+
+    left2, right2 = st.columns((1, 1))
+    with left2:
+        st.markdown('### API, который я использовал для данных - [OpenWeatherAPI](https://openweathermap.org/api). ' +
+                    'Откуда я брал данные самых популярных городов (Использовал 50 городов) - ' +
+                    '[Росстат](https://rosstat.gov.ru/compendium/document/13282).')
+
+    with right2:
+        st.markdown('### Статьи на тему свободного охлаждения - ' +
+                    '[Общая статья](https://iclim.ru/articles/chto_takoe_frikuling/), ' +
+                    '[Общая статья](https://evroprom.com/kz/novosti-i-stati-kz/chiller-s-frikulingom-preimushhestva-i' +
+                    '-osobennosti-3/), ' +
+                    '[Подробная статья](https://hvac-school.ru/vestnik_ano/vestnik_ano_ukc_universitet_29' +
+                    '/rezhim_svobodnogo_ohlazhdenija/)')
+
+    left1, right1 = st.columns((1, 1))
+    with left1:
+        image1 = Image.open(fr"{file_path}\_3_Data_Visualisation\Parts_site\Images\Compass1.jpg")
+        st.image(image1, use_column_width='never', caption='Компас с градусами из столбца "wind_deg"')
+
+    with right1:
+        image2 = Image.open(fr"{file_path}\_3_Data_Visualisation\Parts_site\Images\Map_Free_Cooling.png")
+        st.image(image2, use_column_width='always',
+                 caption='Карта для оптимального климата под свободное охлаждение')
+
+    st.markdown('## Данные которые я использовал')
+    st.dataframe(df, use_container_width=True)
+
+    st.markdown('## Карта с самыми населенными городами')
+    st_folium(map_(df_map), key="fig1", height=700, width=1800)
 
 with tab2:
     left, middle, right = st.columns((1, 5, 1))
     chart = chart_(df, plot_height, plot_width)
+
     with middle:
         st.altair_chart(chart, theme="streamlit", use_container_width=True)

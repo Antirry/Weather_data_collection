@@ -9,7 +9,7 @@ def interactive_chart(df: pd.DataFrame, plot_height, plot_width):
     cities_dict_list = df['name'].unique()
 
     # color1 = alt.Color('count():Q', scale=alt.Scale(scheme='blueorange'), title='Количество одинаковых')
-    color1 = alt.Color('name:N', scale=alt.Scale(domain=cities_dict_list, scheme='turbo'), title='Количество одинаковых')
+    color1 = alt.Color('name:N', scale=alt.Scale(domain=cities_dict_list, scheme='viridis'), title='Количество одинаковых')
     brush = alt.selection_interval(encodings=['x'])
     click = alt.selection_multi(encodings=['color'])
 
