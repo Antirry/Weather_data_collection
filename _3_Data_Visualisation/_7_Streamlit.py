@@ -12,7 +12,9 @@ st.set_page_config(page_title='Погода в г. России',
                    initial_sidebar_state='expanded')
 
 file_path = getcwd()
-with open(fr"{file_path}\_3_Data_Visualisation\Parts_site\style.css") as f:
+file_path_current = file_path.replace('\\_4_To_run_programs', '')
+
+with open(fr"{file_path_current}\_3_Data_Visualisation\Parts_site\style.css") as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 
@@ -61,7 +63,7 @@ with tab1:
     st.markdown('## Проблема одна - это грязный воздух, он увеличивает скорость износа оборудования. ' +
                 'Поэтому я сделал такие цвета от 1 до 50 города.')
     st.markdown('')
-    image = Image.open(fr"{file_path}\_3_Data_Visualisation\Parts_site\Images\Color_Scheme.jpg")
+    image = Image.open(fr"{file_path_current}\_3_Data_Visualisation\Parts_site\Images\Color_Scheme.jpg")
     st.image(image, use_column_width='always',
              caption='Палитра цветов городов (От самого популярного - до не популярного)')
 
@@ -83,19 +85,19 @@ with tab1:
 
     left1, right1 = st.columns((1, 1))
     with left1:
-        image1 = Image.open(fr"{file_path}\_3_Data_Visualisation\Parts_site\Images\Compass1.jpg")
+        image1 = Image.open(fr"{file_path_current}\_3_Data_Visualisation\Parts_site\Images\Compass1.jpg")
         st.image(image1, use_column_width='never', caption='Компас с градусами из столбца "wind_deg"')
 
     with right1:
-        image2 = Image.open(fr"{file_path}\_3_Data_Visualisation\Parts_site\Images\Map_Free_Cooling.png")
+        image2 = Image.open(fr"{file_path_current}\_3_Data_Visualisation\Parts_site\Images\Map_Free_Cooling.png")
         st.image(image2, use_column_width='always',
                  caption='Карта для оптимального климата под свободное охлаждение')
 
-    st.markdown('## Данные которые я использовал')
-    st.dataframe(df, use_container_width=True)
-
     st.markdown('## Карта с самыми населенными городами')
     st.map(name_coor(df), zoom=2, use_container_width=True)
+
+    st.markdown('## Данные которые я использовал')
+    st.dataframe(df, use_container_width=True)
 
 with tab2:
     left, middle, right = st.columns((1, 5, 1))
