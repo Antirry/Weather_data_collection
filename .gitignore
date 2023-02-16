@@ -5,3 +5,4 @@
 /**/*.pem
 /_4_To_run_programs/config.py
 /**/*.xlsx
+/**/Dockerfile

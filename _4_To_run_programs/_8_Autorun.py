@@ -1,7 +1,6 @@
 from schedule import repeat, every, run_pending
 import time
-from _2_Data_generation._4_Write_in_DB import write_db
-from subprocess import Popen
+from subprocess import Popen, call
 from os import getcwd
 
 
@@ -13,21 +12,26 @@ def main_app():
     return main
 
 
+def main_db():
+    file_path_current = fr"{getcwd()}\_2_Data_generation\_4_Write_in_DB.py"
+    file_path_current = file_path_current.replace('\\_4_To_run_programs', '')
+
+    main = call(["python", file_path_current], shell=True)
+    return main
+
+
 print("Запуск приложения...")
-a = main_app()
-print("\n Запущено \n")
+app_ = main_app()
 
 
 @repeat(every().day.at('23:00'))
 def table_write():
-    global a
-    a.terminate()
+    global app_
+    app_.terminate()
     print("Создание новой таблицы ..")
-    write_db()
-    print("\n БАЗА ГОТОВА \n")
+    main_db()
     print("Запуск приложения...")
-    a = main_app()
-    print("\n Запущено \n")
+    app_ = main_app()
 
 
 print("Ожидание запуска (23:00)..")

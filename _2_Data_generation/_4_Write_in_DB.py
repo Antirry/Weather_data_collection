@@ -1,3 +1,8 @@
+import sys
+from os.path import dirname, abspath
+d = dirname(dirname(abspath(__file__)))
+sys.path.append(d)
+
 import pymongo
 from _4_To_run_programs.config import hostname
 import datetime
@@ -27,3 +32,6 @@ def write_db():
     except Exception as ex:
         print("Такая база уже есть, ошибка в '_4_Write_in_DB.py' ->", ex)
         return False
+
+
+write_db()
