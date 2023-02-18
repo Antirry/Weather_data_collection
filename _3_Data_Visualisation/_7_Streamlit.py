@@ -32,6 +32,9 @@ with st.sidebar:
     st.markdown('#### (free-cooling), свободное охлаждение серверов воздухом с улицы, работает от -30 до +20 - +22 °C,')
     st.markdown('#### После (+22 - +35 °C) устанавливаются холодильные машины, без свободного охлаждения.')
     st.markdown('#### Меньше скорость ветра = лучше для кулера, меньше засориться грязью - пылью фильтр.')
+    image1 = Image.open(path.join(dir_name, 'Parts_site', 'Images', 'Compass0.png'))
+    st.image(image1, use_column_width='always')
+    st.markdown('#### Компас со сторонами света для кулеров')
 
     st.markdown('''---''')
     plot_height = st.sidebar.slider('Настройка высоты графика', 200, 1000, 200)
