@@ -1,7 +1,8 @@
 import pandas as pd
 import streamlit as st
-from os import getcwd
+from os import path
 from PIL import Image
+
 from _6_Extract_Data import start_retrieve_documents as documents
 from Parts_site.Metrics import metrics
 from Parts_site.Chart import interactive_chart as chart_
@@ -11,10 +12,9 @@ st.set_page_config(page_title='Погода в г. России',
                    layout='wide',
                    initial_sidebar_state='expanded')
 
-file_path = getcwd()
-file_path_current = file_path.replace('\\_4_To_run_programs', '')
+dir_name = path.dirname(path.abspath(__file__))
 
-with open(fr"{file_path_current}\_3_Data_Visualisation\Parts_site\style.css") as f:
+with open(path.join(dir_name, 'Parts_site', 'style.css')) as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 
@@ -63,7 +63,7 @@ with tab1:
     st.markdown('## Проблема одна - это грязный воздух, он увеличивает скорость износа оборудования. ' +
                 'Поэтому я сделал такие цвета от 1 до 50 города.')
     st.markdown('')
-    image = Image.open(fr"{file_path_current}\_3_Data_Visualisation\Parts_site\Images\Color_Scheme.jpg")
+    image = Image.open(path.join(dir_name, 'Parts_site', 'Images', 'Color_Scheme.jpg'))
     st.image(image, use_column_width='always',
              caption='Палитра цветов городов (От самого популярного - до не популярного)')
 
@@ -85,11 +85,11 @@ with tab1:
 
     left1, right1 = st.columns((1, 1))
     with left1:
-        image1 = Image.open(fr"{file_path_current}\_3_Data_Visualisation\Parts_site\Images\Compass1.jpg")
+        image1 = Image.open(path.join(dir_name, 'Parts_site', 'Images', 'Compass1.jpg'))
         st.image(image1, use_column_width='never', caption='Компас с градусами из столбца "wind_deg"')
 
     with right1:
-        image2 = Image.open(fr"{file_path_current}\_3_Data_Visualisation\Parts_site\Images\Map_Free_Cooling.png")
+        image2 = Image.open(path.join(dir_name, 'Parts_site', 'Images', 'Map_Free_Cooling.png'))
         st.image(image2, use_column_width='always',
                  caption='Карта для оптимального климата под свободное охлаждение')
 
