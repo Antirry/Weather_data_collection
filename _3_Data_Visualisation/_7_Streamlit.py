@@ -5,8 +5,9 @@ from PIL import Image
 
 from _6_Extract_Data import start_retrieve_documents as documents
 from Parts_site.Metrics import metrics
-from Parts_site.Chart import interactive_chart as chart_
 from Parts_site.map import extract_name_coor as name_coor
+from _3_Data_Visualisation.Parts_site.Table_Columns_df import name_df
+from Parts_site.Chart import interactive_chart as chart_
 
 st.set_page_config(page_title='Погода в г. России',
                    layout='wide',
@@ -25,6 +26,7 @@ def data():
 
 
 df = data()
+table_df = data()
 
 st.title('Погода в самых населенных городах России')
 
@@ -100,7 +102,7 @@ with tab1:
     st.map(name_coor(df), zoom=2, use_container_width=True)
 
     st.markdown('## Данные которые я использовал')
-    st.dataframe(df, use_container_width=True)
+    st.dataframe(name_df(table_df), use_container_width=True)
 
 with tab2:
     left, middle, right = st.columns((1, 5, 1))
