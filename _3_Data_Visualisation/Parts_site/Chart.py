@@ -6,7 +6,7 @@ def interactive_chart(df: pd.DataFrame, plot_height, plot_width):
     cities_dict_list = df['name'].unique()
 
     color1 = alt.Color('name:N', scale=alt.Scale(domain=cities_dict_list, scheme='redyellowgreen'), title='Количество одинаковых')
-    brush = alt.selection_interval(encodings=['x'])
+    brush = alt.selection_interval(encodings=['x', 'y'])
     click = alt.selection_multi(encodings=['color'])
 
     points1 = alt.Chart(df).mark_rect().encode(
@@ -22,22 +22,9 @@ def interactive_chart(df: pd.DataFrame, plot_height, plot_width):
         click
     )
 
-    points2 = alt.Chart(df).mark_point().encode(
-        alt.Y('temp:N', title='Температура (°C)'),
-        alt.X('wind:N', title='Ветер (м/c)'),
-        color=alt.condition(brush, color1, alt.value('lightgray')),
-    ).properties(
-        width=plot_width,
-        height=plot_height
-    ).add_selection(
-        brush
-    ).transform_filter(
-        click
-    )
-
     bar1 = alt.Chart(df).mark_bar().encode(
         alt.X('count()', title='Количество'),
-        alt.Y('name:N', title='Название городов'),
+        alt.Y('name:N', sort='-x', title='Название городов'),
         color=alt.condition(click, color1, alt.value('lightgray')),
     ).transform_filter(
         brush
@@ -47,9 +34,9 @@ def interactive_chart(df: pd.DataFrame, plot_height, plot_width):
         click
     )
 
-    bar2 = alt.Chart(df).mark_bar().encode(
+    bar2 = points1.mark_bar().encode(
         alt.X('count()', title='Количество'),
-        alt.Y('wind_dir:N', title='Направление ветра'),
+        alt.Y('wind_dir:N', sort='-x', title='Направление ветра'),
         color=alt.condition(click, color1, alt.value('lightgray')),
     ).transform_filter(
         brush
@@ -59,9 +46,9 @@ def interactive_chart(df: pd.DataFrame, plot_height, plot_width):
         click
     )
 
-    bar3 = alt.Chart(df).mark_bar().encode(
+    bar3 = points1.mark_bar().encode(
         alt.X('count()', title='Количество'),
-        alt.Y('weather_disc:N', title='Описание погоды'),
+        alt.Y('weather_disc:N', sort='-x', title='Описание погоды'),
         color=alt.condition(click, color1, alt.value('lightgray')),
     ).transform_filter(
         brush
@@ -75,7 +62,6 @@ def interactive_chart(df: pd.DataFrame, plot_height, plot_width):
 
     chart = alt.vconcat(
         points1,
-        points2,
         bar1,
         bar2,
         bar3,
