@@ -7,7 +7,7 @@
             }
 
 [data-testid="stMarkdownContainer"] > p {
-    color: #36b9cc !important;
+    color: #CB7D77;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     font-size: 130%;
@@ -42,17 +42,19 @@
 
 [data-testid="stMarkdownContainer"] > div > h2 {
     text-align: center !important;
-    color: #36b9cc !important;
+    color: #CB7D77;
     font-size: 164%;
 }
 
 [data-testid="stMarkdownContainer"] > div > h3 {
     text-align: center !important;
+    color: #CB7D77;
     font-size: 164%;
 }
 
 [data-testid="caption"] {
     font-size: 130%;
+    color: #D5BFBD;
 }
 
 [data-testid="stImage"] > img {
@@ -66,7 +68,7 @@
 
 
 div.css-1xarl3l.e16fv1kl1 {
-    background-color: #FFFFFF;
+    background-color: #D5BFBD;
     background-color: transparent;
     border: 1px solid #CCCCCC;
     padding: 5% 5% 5% 10%;
